@@ -34,7 +34,7 @@ test('alt version using the user type method from RTL User', () => {
   expect(getByRole('alert')).toHaveTextContent(/the number is invalid/i);
 });
 
-// TEST VERIATION USING THE RERENDER METHOD ______________________
+// TEST VARIATION USING THE RERENDER METHOD ______________________
 test('test variation using the rerender method', () => {
   const { getByLabelText, getByRole, rerender, debug } = render(
     <FavoriteNumber />

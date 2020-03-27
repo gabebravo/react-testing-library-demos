@@ -33,3 +33,21 @@ test('alt version using the user type method from RTL User', () => {
 
   expect(getByRole('alert')).toHaveTextContent(/the number is invalid/i);
 });
+
+// TEST VERIATION USING THE RERENDER METHOD ______________________
+test('test variation using the rerender method', () => {
+  const { getByLabelText, getByRole, rerender, debug } = render(
+    <FavoriteNumber />
+  );
+  const input = getByLabelText(/favorite number/i);
+
+  // the user here is simulating typing out the keys and pressing the number 1 and 0.
+  user.type(input, '10');
+  expect(getByRole('alert')).toHaveTextContent(/the number is invalid/i);
+
+  // if you need to re-render that same component with new props,
+  // you simply use the re-render method that you get back from render.
+  debug();
+  rerender(<FavoriteNumber max={10} />);
+  debug();
+});

@@ -12,7 +12,7 @@ export default function FavoriteNumber({ min = 1, max = 9 }) {
   return (
     <div className="container">
       <label style={{ marginTop: '5rem' }} htmlFor="favorite-number">
-        Favorite Number
+        favorite Number
       </label>
       <input
         id="favorite-number"

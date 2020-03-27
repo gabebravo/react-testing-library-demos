@@ -1,22 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { getQuereiesForElement } from '@testing-library/dom';
-import '@testing-library/jest-dom/extend-expect';
 import FavoriteNumber from '.';
 
-// EXTEND JEST FOR BETTER ERROR FEEEDBACK AND CLEARER SYNTAX _______
-test('fave num test using jest toHaveAttribute', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<FavoriteNumber />, div); // render the component in the div
-  // console.log('info: ', div.innerHTML)
+// REFACTOR __________________________________
 
-  // more terse version doesnt use queries.getByLabelText or require container
-  const { getByLabelText } = getQuereiesForElement(div);
+// DRY - can reuse for any React DOM testing instance
+function render(ui) {
+  const container = document.createElement('div');
+  ReactDOM.render(ui, container); // wraps ui in container
+  const queries = getQuereiesForElement(container); // gets all query methods
+  return { container, ...queries }; // return container and methods
+}
 
-  // RTL will search all children in the div above for a label with this text.
-  // It will find the form control associated to that label and return that as our input.
-  const input = getByLabelText(/favorite number/i); // regex ignoire case
-
+test('renders a number input with a label "Favorite Number"', () => {
+  const { getByLabelText } = render(<FavoriteNumber />); // getting a query method
+  const input = getByLabelText(/favorite number/i); // regex ignore case
   // toHaveAttribute (atribute, value)
   expect(input).toHaveAttribute('type', 'number');
 });

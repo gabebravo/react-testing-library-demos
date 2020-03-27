@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 'stable'
+  - stable
 cache:
   directories:
     - node_modules
@@ -10,5 +10,5 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: $HK_KEY
+    secure: RbU4vuOprpMDx9O2X6KUMGeCm1hZMGuE087g8VzLCS8dpzDoMKJzDsDyS/KU02ozgiJ0sWkJRgKqt48tsSOxnXJveo8eGJgRfeONU+B+xLhhsxymGJZ5StWyi3UPtMyefkFM9zBQfe0+QGRnxWXZR+YvatP1ZH77DFea53ij9/Jx9ic0jHPIdXMRynRRL6jCjzzNXs/BUBUHcLaD5nOT0af5olYhzIOuDqltoOfVaYhjOc7TuiNBwCijmgip3SqX/DX4Ba0S1knQD246mFuAONDDnoNK1tdNPjm408bpQGFNF6EJTQxa8HbjncXA757Zgk2exCZ1pZZuEaXeHAI0CFKe3bLLs21WLhAbMKqbdbq0IN1NSol6DaHdUdsa3bg/FyoDIf4NZI9shMImimzi/Avp8O96jTDbljpYvo1UW/21MBex2mSFZWvWgfpXGsChRw8WDhvXhuKGpJ2QR0Kp6y3FSVeivesfzhOw/txT3QfM1dfpPvsL2tCUStbveTAxsmaLv7FbtT7oGul4NJNwtf0flzlAvfiE0732kyjHow4EBx4gvLjLwuZychEZsc/XUIOs5uVrUOptb9UvZCSGcND9xdc/6gYc9xQWV0XtCnNTt8HvP5TuOtFdI39qCEgC+M7frdIGtZ8G6fxpfjPxrE9nZ7ptbVYufoKTMfD27pE=
   app: vast-hollows-01184

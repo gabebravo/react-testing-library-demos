@@ -10,4 +10,18 @@ This article outlines connecting the github repo to Heroku with auto deploymenmt
 
 This article outlines connecting Travis CI to your github repo to run all test before deploying to Heroku with auto deploymenmts from the master branch:
 
-[Github, Travis CI, Heroku deplyment](https://codeburst.io/ci-cd-with-github-travis-ci-and-heroku-e088a24f32ef).
+[Github, Travis CI, Heroku deplyment](https://docs.travis-ci.com/user/deployment/heroku/).
+[Helpful GH Issue](https://github.com/travis-ci/travis-ci/issues/10018).
+
+- To get correct Heroku auth token
+  Go to Heroku Account
+  Manually copy the API Key and then paste it into command line:
+  For the ones hosted at travis-ci.com:
+  travis encrypt pasteAPIKeyHere --add deploy.api_key --pro
+  For the ones hosted at travis-ci.org:
+  travis encrypt pasteAPIKeyHere --add deploy.api_key --org
+
+## Travis CI org vs com
+
+This stackexchange article outlines the difference between Travis CI org vs com:
+[Travis CI org vs com](https://devops.stackexchange.com/questions/1201/whats-the-difference-between-travis-ci-org-and-travis-ci-com).

@@ -1,4 +1,5 @@
 import React from 'react';
+import user from '@testing-library/user-event';
 import { render, fireEvent } from '@testing-library/react';
 import FavoriteNumber from '.';
 
@@ -18,6 +19,17 @@ test('entering an invalid value shows an error message', () => {
   // this will take the input, which is the target, and apply all of the properties we've specified.
   // So now the input is going to have a value of 10.
   fireEvent.change(input, { target: { value: '10' } });
+
+  expect(getByRole('alert')).toHaveTextContent(/the number is invalid/i);
+});
+
+// ALT VERSION USING USER FROM RTL ______________________________
+test('alt version using the user type method from RTL User', () => {
+  const { getByLabelText, getByRole } = render(<FavoriteNumber />);
+  const input = getByLabelText(/favorite number/i);
+
+  // the user here is simulating typing out the keys and pressing the number 1 and 0.
+  user.type(input, '10');
 
   expect(getByRole('alert')).toHaveTextContent(/the number is invalid/i);
 });

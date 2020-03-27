@@ -2,7 +2,9 @@
 
 This article outlines connecting the github repo to Heroku with auto deploymenmts from the master branch:
 
-[Step 3: Deploy to Heroku](https://www.freecodecamp.org/news/how-to-deploy-a-nodejs-app-to-heroku-from-github-without-installing-heroku-on-your-machine-433bec770efe/).
+[Step up Heroku + CRA](https://blog.heroku.com/deploying-react-with-zero-configuration).
+
+[Add Github Auto-deployments](https://www.freecodecamp.org/news/how-to-deploy-a-nodejs-app-to-heroku-from-github-without-installing-heroku-on-your-machine-433bec770efe/).
 
 ## Continuous Integration
 

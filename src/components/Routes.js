@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from '../views/Home';
 import FavoriteNumber from '../views/FavoriteNumber';
 import AccessiblityForms from '../views/AccessiblityForms';
+import GreetingLoader from '../views/GreetingLoader';
 const NoMatch = () => 'There is nothing to see here';
 
 export default function Routes() {
@@ -16,6 +17,9 @@ export default function Routes() {
       </Route>
       <Route path="/accessibility-forms">
         <AccessiblityForms />
+      </Route>
+      <Route path="/greeting-loader">
+        <GreetingLoader />
       </Route>
       <Route path="*">
         <NoMatch />

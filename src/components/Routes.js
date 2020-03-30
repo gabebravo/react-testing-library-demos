@@ -4,6 +4,7 @@ import Home from '../views/Home';
 import FavoriteNumber from '../views/FavoriteNumber';
 import AccessiblityForms from '../views/AccessiblityForms';
 import GreetingLoader from '../views/GreetingLoader';
+import HiddenMessage from '../views/HiddenMessage';
 const NoMatch = () => 'There is nothing to see here';
 
 export default function Routes() {
@@ -20,6 +21,9 @@ export default function Routes() {
       </Route>
       <Route path="/greeting-loader">
         <GreetingLoader />
+      </Route>
+      <Route path="/hidden-message">
+        <HiddenMessage />
       </Route>
       <Route path="*">
         <NoMatch />

@@ -27,17 +27,15 @@ function Bomb({ shouldThrow }) {
 
 test('calls reportError and renders that there was a problem', () => {
   mockReportError.mockResolvedValueOnce({ success: true });
-  const { rerender, getByText, queryByText, getByRole, queryByRole } = render(
-    <ErrorBoundary>
-      <Bomb />
-    </ErrorBoundary>
-  );
+  const {
+    rerender,
+    getByText,
+    queryByText,
+    getByRole,
+    queryByRole
+  } = render(<Bomb />, { wrapper: ErrorBoundary });
 
-  rerender(
-    <ErrorBoundary>
-      <Bomb shouldThrow={true} />
-    </ErrorBoundary>
-  );
+  rerender(<Bomb shouldThrow={true} />);
 
   const error = expect.any(Error);
   const info = { componentStack: expect.stringContaining('Bomb') };
@@ -53,11 +51,7 @@ test('calls reportError and renders that there was a problem', () => {
   console.error.mockClear();
   mockReportError.mockClear();
 
-  rerender(
-    <ErrorBoundary>
-      <Bomb />
-    </ErrorBoundary>
-  );
+  rerender(<Bomb />);
 
   fireEvent.click(getByText(/try again/i));
 

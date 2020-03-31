@@ -3,7 +3,15 @@ import { render } from '@testing-library/react';
 import { reportError as mockReportError } from '../../utils/api';
 import ErrorBoundary from '.';
 
-jest.mock('../../utils/api');
+jest.mock('../api');
+
+beforeAll(() => {
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+});
+
+afterAll(() => {
+  console.error.mockRestore();
+});
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -18,16 +26,13 @@ function Bomb({ shouldThrow }) {
 }
 
 test('calls reportError and renders that there was a problem', () => {
-  // first time the success is true, so simulates no error
   mockReportError.mockResolvedValueOnce({ success: true });
-
-  const { rerender } = render(
+  const { rerender, getByText, queryByText, getByRole, queryByRole } = render(
     <ErrorBoundary>
       <Bomb />
     </ErrorBoundary>
   );
 
-  // this rerender will rerender the component with the bomb
   rerender(
     <ErrorBoundary>
       <Bomb shouldThrow={true} />
@@ -36,22 +41,28 @@ test('calls reportError and renders that there was a problem', () => {
 
   const error = expect.any(Error);
   const info = { componentStack: expect.stringContaining('Bomb') };
-  // assertions
   expect(mockReportError).toHaveBeenCalledWith(error, info);
   expect(mockReportError).toHaveBeenCalledTimes(1);
-});
 
-// this is only here to make the error output not appear in the project's output
-// even though in the course we don't include this bit and leave it in it's incomplete state.
-beforeEach(() => {
-  jest.spyOn(console, 'error').mockImplementation(() => {});
-});
+  expect(console.error).toHaveBeenCalledTimes(2);
 
-afterEach(() => {
-  console.error.mockRestore();
-});
+  expect(getByRole('alert').textContent).toMatchInlineSnapshot(
+    `"There was a problem."`
+  );
 
-/*
-eslint
-  jest/prefer-hooks-on-top: off
-*/
+  console.error.mockClear();
+  mockReportError.mockClear();
+
+  rerender(
+    <ErrorBoundary>
+      <Bomb />
+    </ErrorBoundary>
+  );
+
+  fireEvent.click(getByText(/try again/i));
+
+  expect(mockReportError).not.toHaveBeenCalled();
+  expect(console.error).not.toHaveBeenCalled();
+  expect(queryByRole('alert')).not.toBeInTheDocument();
+  expect(queryByText(/try again/i)).not.toBeInTheDocument();
+});

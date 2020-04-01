@@ -5,6 +5,7 @@ import FavoriteNumber from '../views/FavoriteNumber';
 import AccessiblityForms from '../views/AccessiblityForms';
 import GreetingLoader from '../views/GreetingLoader';
 import HiddenMessage from '../views/HiddenMessage';
+import PostEditor from '../views/PostEditor';
 const NoMatch = () => 'There is nothing to see here';
 
 export default function Routes() {
@@ -24,6 +25,9 @@ export default function Routes() {
       </Route>
       <Route path="/hidden-message">
         <HiddenMessage />
+      </Route>
+      <Route path="/post-editor">
+        <PostEditor />
       </Route>
       <Route path="*">
         <NoMatch />

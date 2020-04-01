@@ -11,7 +11,7 @@ const StyledForm = styled.form`
 export default function Editor() {
   return (
     <StyledForm>
-      <label aria-label="Title field input" htmlFor="title-input">
+      <label aria-label="Info for reader here" htmlFor="title-input">
         Title
       </label>
       <input id="title-input" />

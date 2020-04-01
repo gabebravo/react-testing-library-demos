@@ -9,8 +9,15 @@ const StyledForm = styled.form`
 `;
 
 export default function Editor() {
+  const [isSaving, setIsSaving] = React.useState(false);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setIsSaving(true);
+  }
+
   return (
-    <StyledForm>
+    <StyledForm onSubmit={handleSubmit}>
       <label aria-label="Info for reader here" htmlFor="title-input">
         Title
       </label>
@@ -22,7 +29,7 @@ export default function Editor() {
       <label htmlFor="tags-input">Tags</label>
       <input id="tags-input" />
 
-      <button aria-label="Woooooo hooooo!!!" type="submit">
+      <button aria-label="Woooooo hooooo!!!" type="submit" disabled={isSaving}>
         Submit
       </button>
     </StyledForm>

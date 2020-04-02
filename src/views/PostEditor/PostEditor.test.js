@@ -30,6 +30,7 @@ test('renders a form with title, content, tags, and a submit button', async () =
     content: 'Test content',
     tags: ['tag1', 'tag2']
   };
+  const preDate = new Date().getTime(); // start date/time for assertion
 
   // assigning values to the form inputs
   getByLabelText(/title/i).value = fakePost.title;
@@ -44,9 +45,17 @@ test('renders a form with title, content, tags, and a submit button', async () =
   // assertion for the mock call using the value assigned above
   expect(mockSavePost).toHaveBeenCalledWith({
     ...fakePost,
+    date: expect.any(String),
     authorId: fakeUser.id
   });
   expect(mockSavePost).toHaveBeenCalledTimes(1);
+
+  const postDate = new Date().getTime(); // end date/time for assertion
+  const date = new Date(mockSavePost.mock.calls[0][0].date).getTime();
+  console.log('mock date', date);
+  // assertion to verify the date
+  expect(date).toBeGreaterThanOrEqual(preDate);
+  expect(date).toBeLessThanOrEqual(postDate);
 
   // React Router redirect assertion >> requires async wait fn from RTL
   await wait(() => expect(MockRedirect).toHaveBeenCalledWith({ to: '/' }, {}));

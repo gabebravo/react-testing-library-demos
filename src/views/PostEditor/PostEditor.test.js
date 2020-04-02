@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect as MockRedirect } from 'react-router-dom';
 import { render, fireEvent, wait } from '@testing-library/react';
+import { build, fake, sequence } from 'test-data-bot';
 import { savePost as mockSavePost } from '../../utils/api';
 import PostEditor from '.';
 
@@ -19,17 +20,25 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
+// func using test-data-bot to build Post mock data objcets
+const postBuilder = build('Post').fields({
+  title: fake(f => f.lorem.words()),
+  content: fake(f => f.lorem.paragraphs().replace(/\r/g, '')), // fix weird faker formatting
+  tags: fake(f => [f.lorem.words(), f.lorem.words(), f.lorem.words()])
+});
+
+// func using test-data-bot to build User mock data objcets
+const userBuilder = build('User').fields({
+  id: sequence(s => `user-${s}`)
+});
+
 test('renders a form with title, content, tags, and a submit button', async () => {
   // the actual mock api call - will return a promise that gets resolved
   mockSavePost.mockResolvedValueOnce(); // not mocking the reponse
 
-  const fakeUser = { id: 'user-1' };
+  const fakeUser = userBuilder();
   const { getByLabelText, getByText } = render(<PostEditor user={fakeUser} />);
-  const fakePost = {
-    title: 'Test Title',
-    content: 'Test content',
-    tags: ['tag1', 'tag2']
-  };
+  const fakePost = postBuilder();
   const preDate = new Date().getTime(); // start date/time for assertion
 
   // assigning values to the form inputs
@@ -52,7 +61,6 @@ test('renders a form with title, content, tags, and a submit button', async () =
 
   const postDate = new Date().getTime(); // end date/time for assertion
   const date = new Date(mockSavePost.mock.calls[0][0].date).getTime();
-  console.log('mock date', date);
   // assertion to verify the date
   expect(date).toBeGreaterThanOrEqual(preDate);
   expect(date).toBeLessThanOrEqual(postDate);

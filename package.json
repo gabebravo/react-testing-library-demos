@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
-    "react-axe": "^3.4.1"
+    "react-axe": "^3.4.1",
+    "test-data-bot": "^0.8.0"
   }
 }

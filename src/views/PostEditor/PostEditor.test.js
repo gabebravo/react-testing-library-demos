@@ -39,6 +39,7 @@ test('renders a form with title, content, tags, and a submit button', async () =
   const fakeUser = userBuilder();
   const { getByLabelText, getByText } = render(<PostEditor user={fakeUser} />);
   const fakePost = postBuilder();
+  // console.log('fakePost', { ...fakeUser, ...fakePost });
   const preDate = new Date().getTime(); // start date/time for assertion
 
   // assigning values to the form inputs

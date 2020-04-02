@@ -27,12 +27,12 @@ test('loads greetings on click', async () => {
 
   await wait(() => {
     debug(); // here the <div> will have TEST_GREETING within it
-    console.log('greeting', greeting); // '__reactEventHandlers': { 'aria-label': 'greeting', children: 'TEST_GREETING' },
+    // console.log('greeting', greeting); // '__reactEventHandlers': { 'aria-label': 'greeting', children: 'TEST_GREETING' },
     expect(greeting).toHaveTextContent(testGreeting);
   });
 
   // EXTRA INFO ___________________________________
   const alMessage = getByLabelText(/yay/i); // this will find a label element or aria-label
   debug(alMessage); // this is the second static div
-  console.log('alMessage', alMessage); // this is the HTMLDiVElement
+  // console.log('alMessage', alMessage); // this is the HTMLDiVElement
 });

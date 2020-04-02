@@ -1,7 +1,16 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { Redirect as MockRedirect } from 'react-router-dom';
+import { render, fireEvent, wait } from '@testing-library/react';
 import { savePost as mockSavePost } from '../../utils/api';
 import PostEditor from '.';
+
+// mock react router redirect
+jest.mock('react-router', () => {
+  return {
+    // fest func serves for running assertion
+    Redirect: jest.fn(() => null)
+  };
+});
 
 // jest API mock
 jest.mock('../../utils/api');
@@ -10,7 +19,7 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-test('renders a form with title, content, tags, and a submit button', () => {
+test('renders a form with title, content, tags, and a submit button', async () => {
   // the actual mock api call - will return a promise that gets resolved
   mockSavePost.mockResolvedValueOnce(); // not mocking the reponse
 
@@ -38,4 +47,10 @@ test('renders a form with title, content, tags, and a submit button', () => {
     authorId: fakeUser.id
   });
   expect(mockSavePost).toHaveBeenCalledTimes(1);
+
+  // React Router redirect assertion >> requires async wait fn from RTL
+  await wait(() => expect(MockRedirect).toHaveBeenCalledWith({ to: '/' }, {}));
+
+  // better not to have toHaveBeenCalledTimes assertion on mocked call >>
+  // NOPE :expect(MockRedirect).toHaveBeenCalledTimes(1);
 });

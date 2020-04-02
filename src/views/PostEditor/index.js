@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { savePost } from '../../utils/api';
 
@@ -11,17 +12,25 @@ const StyledForm = styled.form`
 
 export default function PostEditor({ user }) {
   const [isSaving, setIsSaving] = React.useState(false);
+  const [redirect, setRedirect] = React.useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
     const { title, content, tags } = e.target.elements;
-    setIsSaving(true);
-    savePost({
+    const newPost = {
       title: title.value,
       content: content.value,
       tags: tags.value.split(',').map(t => t.trim()),
       authorId: user.id
-    });
+    };
+    setIsSaving(true);
+    // IMP : waits for API POST to resolve and then sets redirect flag
+    savePost(newPost).then(() => setRedirect(true));
+  }
+
+  // will trigger the redirect on rerender
+  if (redirect) {
+    return <Redirect to="/" />;
   }
 
   return (

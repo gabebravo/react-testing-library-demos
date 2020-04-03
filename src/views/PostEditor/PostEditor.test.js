@@ -73,27 +73,21 @@ test('renders a form with title, content, tags, and a submit button', async () =
   // NOPE :expect(MockRedirect).toHaveBeenCalledTimes(1);
 });
 
+// THIS IS THE CONDITION THAT THE SAVE API CALL FAILS
 test('renders an error message from the server', async () => {
+  const TEST_ERROR = 'test error';
   mockSavePost.mockRejectedValueOnce({
-    data: { error: 'test error' }
+    data: { error: TEST_ERROR }
   }); // mocking the rejected reponse
 
   const fakeUser = userBuilder();
-  const { getByLabelText, getByText, findByRole } = render(
-    <PostEditor user={fakeUser} />
-  );
-  const fakePost = postBuilder();
-
-  // assigning values to the form inputs
-  getByLabelText(/title/i).value = fakePost.title;
-  getByLabelText(/content/i).value = fakePost.content;
-  getByLabelText(/tags/i).value = fakePost.tags.join(',');
+  const { getByText, findByRole } = render(<PostEditor user={fakeUser} />);
 
   const submitButton = getByText(/submit/i);
   fireEvent.click(submitButton); // click the button
 
   // findBy query are async, so they will keep trying and waiting until they timeout
   const postError = await findByRole('alert');
-  expect(postError).toHaveTextContent('test error');
+  expect(postError).toHaveTextContent(TEST_ERROR);
   expect(submitButton).not.toBeDisabled();
 });

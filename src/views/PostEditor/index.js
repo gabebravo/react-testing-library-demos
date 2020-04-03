@@ -13,6 +13,7 @@ const StyledForm = styled.form`
 export default function PostEditor({ user }) {
   const [isSaving, setIsSaving] = React.useState(false);
   const [redirect, setRedirect] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,7 +27,12 @@ export default function PostEditor({ user }) {
     };
     setIsSaving(true);
     // IMP : waits for API POST to resolve and then sets redirect flag
-    savePost(newPost).then(() => setRedirect(true));
+    savePost(newPost)
+      .then(() => setRedirect(true))
+      .catch(res => {
+        setIsSaving(false);
+        setError(res.data.error);
+      });
   }
 
   // will trigger the redirect on rerender
@@ -50,6 +56,7 @@ export default function PostEditor({ user }) {
       <button aria-label="Woooooo hooooo!!!" type="submit" disabled={isSaving}>
         Submit
       </button>
+      {error && <div role="alert">{error}</div>}
     </StyledForm>
   );
 }

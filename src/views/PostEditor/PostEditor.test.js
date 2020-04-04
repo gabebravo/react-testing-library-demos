@@ -32,22 +32,33 @@ const userBuilder = build('User').fields({
   id: sequence(s => `user-${s}`)
 });
 
+// resuable function to share code between tests
+function renderEditor() {
+  const fakeUser = userBuilder();
+  const utils = render(<PostEditor user={fakeUser} />);
+  const fakePost = postBuilder();
+  // console.log('fakePost', { ...fakeUser, ...fakePost });
+
+  // assigns values to the form inputs
+  utils.getByLabelText(/title/i).value = fakePost.title;
+  utils.getByLabelText(/content/i).value = fakePost.content;
+  utils.getByLabelText(/tags/i).value = fakePost.tags.join(', ');
+  const submitButton = utils.getByText(/submit/i);
+  return {
+    ...utils,
+    submitButton,
+    fakeUser,
+    fakePost
+  };
+}
+
 test('renders a form with title, content, tags, and a submit button', async () => {
   // the actual mock api call - will return a promise that gets resolved
   mockSavePost.mockResolvedValueOnce(); // not mocking the reponse
 
-  const fakeUser = userBuilder();
-  const { getByLabelText, getByText } = render(<PostEditor user={fakeUser} />);
-  const fakePost = postBuilder();
-  // console.log('fakePost', { ...fakeUser, ...fakePost });
-  const preDate = new Date().getTime(); // start date/time for assertion
-
-  // assigning values to the form inputs
-  getByLabelText(/title/i).value = fakePost.title;
-  getByLabelText(/content/i).value = fakePost.content;
-  getByLabelText(/tags/i).value = fakePost.tags.join(',');
-
-  const submitButton = getByText(/submit/i);
+  // shared render function
+  const { submitButton, fakePost, fakeUser } = renderEditor();
+  const preDate = new Date().getTime();
 
   fireEvent.click(submitButton); // click the button
   expect(submitButton).toBeDisabled(); // it should be disabled
@@ -68,9 +79,6 @@ test('renders a form with title, content, tags, and a submit button', async () =
 
   // React Router redirect assertion >> requires async wait fn from RTL
   await wait(() => expect(MockRedirect).toHaveBeenCalledWith({ to: '/' }, {}));
-
-  // better not to have toHaveBeenCalledTimes assertion on mocked call >>
-  // NOPE :expect(MockRedirect).toHaveBeenCalledTimes(1);
 });
 
 // THIS IS THE CONDITION THAT THE SAVE API CALL FAILS
@@ -80,10 +88,8 @@ test('renders an error message from the server', async () => {
     data: { error: TEST_ERROR }
   }); // mocking the rejected reponse
 
-  const fakeUser = userBuilder();
-  const { getByText, findByRole } = render(<PostEditor user={fakeUser} />);
-
-  const submitButton = getByText(/submit/i);
+  // shared render function
+  const { submitButton, findByRole } = renderEditor();
   fireEvent.click(submitButton); // click the button
 
   // findBy query are async, so they will keep trying and waiting until they timeout

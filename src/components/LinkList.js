@@ -17,6 +17,7 @@ export default function LinkList({ links }) {
           <li>
             {text}
             <StyledIcon
+              data-testid={text}
               onClick={() => history.push(`/${url}`)}
               className="fas fa-link"
             />
@@ -28,3 +29,26 @@ export default function LinkList({ links }) {
 
   return <ol>{links && renderLinks()}</ol>;
 }
+
+/* ACCESSIBLE VERSION ____________
+
+const renderLinks = () => (
+  <>
+    {React.Children.toArray(
+      links.map(({ text, url }) => (
+        <li>
+          {text}
+          <StyledButton
+            className="button button-clear"
+            aria-label={text}
+            onClick={() => history.push(`/${url}`)}
+          >
+            <span data-testid={text} className="fas fa-link" />
+          </StyledButton>
+        </li>
+      ))
+    )}
+  </>
+);
+
+*/

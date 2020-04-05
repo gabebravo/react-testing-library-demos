@@ -48,3 +48,15 @@ test('renders home and navigates to accessibility forms page', () => {
 // const greetLoaderLink = getByText(/loader/i);
 // const hiddenMessLink = getByText(/message/i);
 // const postEditorLink = getByText(/editor/i);
+
+test('trying to route to a bad link renders NoMatch page', () => {
+  const history = createMemoryHistory({ initialEntries: ['/bad-link'] });
+  render(
+    <Router history={history}>
+      <Home />
+    </Router>
+  );
+
+  const pathname = history.entries[history.entries.length - 1].pathname;
+  expect(pathname).toMatch('/bad-link'); // assert its a match
+});

@@ -13,7 +13,7 @@ test('can render with redux with defaults', () => {
   );
 
   // fires the click event to increment
-  fireEvent.click(getByText('+'));
+  fireEvent.click(getByText('+')); // targets the button text
   // asserts the count is now 1
-  expect(getByLabelText(/count/i)).toHaveTextContent('1');
+  expect(getByLabelText(/count/i)).toHaveTextContent('1'); // span has an aria-label
 });

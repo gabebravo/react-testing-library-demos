@@ -40,7 +40,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^3.2.1",
     "react-axe": "^3.4.1",
+    "react-test-renderer": "^16.9.0",
     "test-data-bot": "^0.8.0"
   }
 }

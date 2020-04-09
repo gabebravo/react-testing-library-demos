@@ -2,6 +2,19 @@ import React from 'react';
 import { render, act } from '@testing-library/react';
 import { useCounter } from './useCounter';
 
+function setup({ initialProps } = {}) {
+  const result = {};
+
+  function TestComponent(props) {
+    result.current = useCounter(props);
+    return null;
+  }
+
+  render(<TestComponent {...initialProps} />);
+  return result;
+}
+
+// FIRST EXAMPLE _________________________
 test('exposes the count and increment/decrement functions', () => {
   let result;
 

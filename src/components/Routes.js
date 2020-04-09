@@ -7,6 +7,7 @@ import GreetingLoader from '../views/GreetingLoader';
 import HiddenMessage from '../views/HiddenMessage';
 import PostEditor from '../views/PostEditor';
 import ReduxCounter from '../views/ReduxCounter';
+import CustomHook from '../views/CustomHook';
 const NoMatch = () => 'There is nothing to see here';
 
 export default function Routes() {
@@ -32,6 +33,9 @@ export default function Routes() {
       </Route>
       <Route path="/redux-counter">
         <ReduxCounter />
+      </Route>
+      <Route path="/custom-hook">
+        <CustomHook />
       </Route>
       <Route path="*">
         <NoMatch />

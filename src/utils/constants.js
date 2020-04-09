@@ -4,5 +4,6 @@ export const linkList = [
   { text: 'Greeting Loader', url: 'greeting-loader' },
   { text: 'Hidden Message', url: 'hidden-message' },
   { text: 'Post Editor', url: 'post-editor' },
-  { text: 'Redux Counter', url: 'redux-counter' }
+  { text: 'Redux Counter', url: 'redux-counter' },
+  { text: 'Custom Hook', url: 'custom-hook' }
 ];

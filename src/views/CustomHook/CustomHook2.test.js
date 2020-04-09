@@ -13,6 +13,18 @@ test('v2 - exposes the count and increment/decrement functions', () => {
   expect(result.current.count).toBe(0);
 });
 
+// HOW DOES renderHook WORK ???
+// It takes 2 params: 1) the hook itself; 2) an object with some initial props
+//  EXAMPLE OF THE OBJECT RETURNED FROM renderHook
+// {
+//   result: { current: [Getter], error: [Getter] },
+//   rerender: [Function: rerender],
+//   unmount: [Function: unmountHook],
+//   wait: [Function: wait],
+//   waitForNextUpdate: [Function: waitForNextUpdate],
+//   waitForValueToChange: [Function: waitForValueToChange]
+// }
+
 test('v2 - allows customization of the initial count', () => {
   const { result } = renderHook(useCounter, {
     initialProps: { initialCount: 3 }
@@ -20,6 +32,7 @@ test('v2 - allows customization of the initial count', () => {
   expect(result.current.count).toBe(3);
 });
 
+// THE COMMENT ABOVE EXPLAINS { result } && result.current.count
 test('v2 - allows customization of the step', () => {
   const { result } = renderHook(useCounter, { initialProps: { step: 2 } });
   expect(result.current.count).toBe(0);

@@ -15,11 +15,11 @@ test('exposes the count and increment/decrement functions', () => {
   render(<TestComponent />);
   expect(result.count).toBe(0);
 
-  // increment assertion >> act is the helper for firing off the hook
+  // increment assertion >> act is the helper for direclty calling the state updater in the hook
   act(() => result.increment());
   expect(result.count).toBe(1);
 
-  // decrement assertion >> act is the helper for firing off the hook
+  // decrement assertion >> this is basically the only use case for calling act manually
   act(() => result.decrement());
   expect(result.count).toBe(0);
 });

@@ -14,7 +14,7 @@ test('v2 - exposes the count and increment/decrement functions', () => {
 });
 
 // HOW DOES renderHook WORK ???
-// It takes 2 params: 1) the hook itself; 2) an object with some initial props
+// It takes two params: 1) the hook itself; 2) an object with some initial props
 //  EXAMPLE OF THE OBJECT RETURNED FROM renderHook
 // {
 //   result: { current: [Getter], error: [Getter] },
@@ -42,4 +42,20 @@ test('v2 - allows customization of the step', () => {
 
   act(() => result.current.decrement());
   expect(result.current.count).toBe(0);
+});
+
+// RERENDER ALLOWS FOR CHANGING HOOK STATE MID-TEST >> step goes from 3 to 2 >> re-test
+test('the step can be changed', () => {
+  const { result, rerender } = renderHook(useCounter, {
+    initialProps: { step: 3 }
+  });
+
+  expect(result.current.count).toBe(0);
+  act(() => result.current.increment());
+
+  expect(result.current.count).toBe(3);
+  rerender({ step: 2 });
+
+  act(() => result.current.decrement());
+  expect(result.current.count).toBe(1);
 });

@@ -5,5 +5,6 @@ export const linkList = [
   { text: 'Hidden Message', url: 'hidden-message' },
   { text: 'Post Editor', url: 'post-editor' },
   { text: 'Redux Counter', url: 'redux-counter' },
-  { text: 'Custom Hook', url: 'custom-hook' }
+  { text: 'Custom Hook', url: 'custom-hook' },
+  { text: 'Portal Modal', url: 'portal-modal' }
 ];

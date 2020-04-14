@@ -35,7 +35,7 @@ const styles = {
 export default function PortalModal() {
   return (
     <Modal>
-      <div className="container" style={styles.wrapper}>
+      <div data-testid="test" className="container" style={styles.wrapper}>
         <h3>Grocery List</h3>
         <ul>
           <li>Yogurt</li>

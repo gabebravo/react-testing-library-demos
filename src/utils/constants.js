@@ -6,5 +6,6 @@ export const linkList = [
   { text: 'Post Editor', url: 'post-editor' },
   { text: 'Redux Counter', url: 'redux-counter' },
   { text: 'Custom Hook', url: 'custom-hook' },
-  { text: 'Portal Modal', url: 'portal-modal' }
+  { text: 'Portal Modal', url: 'portal-modal' },
+  { text: 'Count Unmount', url: 'count-unmount' }
 ];

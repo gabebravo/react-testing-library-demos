@@ -9,6 +9,7 @@ import PostEditor from '../views/PostEditor';
 import ReduxCounter from '../views/ReduxCounter';
 import CustomHook from '../views/CustomHook';
 import PortalModal from '../views/PortalModal';
+import CountUnmount from '../views/CountUnmount';
 const NoMatch = () => 'There is nothing to see here';
 
 export default function Routes() {
@@ -40,6 +41,9 @@ export default function Routes() {
       </Route>
       <Route path="/portal-modal">
         <PortalModal />
+      </Route>
+      <Route path="/count-unmount">
+        <CountUnmount />
       </Route>
       <Route path="*">
         <NoMatch />
